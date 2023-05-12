@@ -71,6 +71,7 @@ MonoBehaviour:
   maxHealth: 4
   score: 10
   speed: -0.5
+  deathPrefab: {fileID: 5417921817039758356, guid: 14e0e618cdfdc964ab15536c390b4ba6, type: 3}
 --- !u!61 &182094021034608089
 BoxCollider2D:
   m_ObjectHideFlags: 0

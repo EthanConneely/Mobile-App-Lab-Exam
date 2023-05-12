@@ -8,6 +8,8 @@ public class Attacker : MonoBehaviour
     [SerializeField] private int maxHealth;
     [SerializeField] private int score;
     [SerializeField] private float speed;
+    [SerializeField] private GameObject deathPrefab;
+
     private int health;
 
     private void Start()
@@ -41,6 +43,7 @@ public class Attacker : MonoBehaviour
             if (health <= 0)
             {
                 Destroy(gameObject);
+                Instantiate(deathPrefab, transform.position, Quaternion.identity);
                 GameController.Instance.AddScore(score);
             }
         }
@@ -59,6 +62,7 @@ public class Attacker : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
         Destroy(gameObject);
+        Instantiate(deathPrefab, gameObject.transform.position, Quaternion.identity);
 
         GetComponent<Rigidbody2D>().velocity = new Vector2(speed, 0);
         GetComponentInChildren<Animator>().enabled = true;

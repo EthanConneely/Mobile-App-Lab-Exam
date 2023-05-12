@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    private AudioManager instance;
+    private static AudioManager instance;
 
-    private void Start()
+    private void Awake()
     {
         if (instance == null)
         {

@@ -14,7 +14,6 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameObject cactusPrefab;
     [SerializeField] private GameObject gameoverGui;
     [SerializeField] private GameObject guiGui;
-    [SerializeField] private bool endless;
 
 
     private Dictionary<Vector2Int, GameObject> gridCells = new();
@@ -58,7 +57,7 @@ public class GameController : MonoBehaviour
             CactusCount++;
         }
 
-        if (Score >= 200 && !endless)
+        if (Score >= 200)
         {
             guiGui.SetActive(true);
         }
