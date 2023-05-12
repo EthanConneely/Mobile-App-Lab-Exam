@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class ScoreGui : MonoBehaviour
 {
+    [SerializeField] private GameController gameController;
     private TMPro.TMP_Text scoreText;
 
     private void Awake()
@@ -11,6 +12,6 @@ public class ScoreGui : MonoBehaviour
 
     private void Update()
     {
-        scoreText.text = ScoreManager.I.Score + "/200";
+        scoreText.text = gameController.Score + "/200";
     }
 }
