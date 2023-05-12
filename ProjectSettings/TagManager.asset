@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Needle
+  - Cactus
   layers:
   - Default
   - TransparentFX
@@ -12,8 +13,8 @@ TagManager:
   - Enemy
   - Water
   - UI
-  - 
-  - 
+  - Cactus
+  - Needle
   - 
   - 
   - 

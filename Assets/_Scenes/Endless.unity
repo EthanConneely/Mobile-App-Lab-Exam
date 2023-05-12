@@ -366,7 +366,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
+    rgba: 4281479730
   m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -1463,7 +1463,7 @@ MonoBehaviour:
   cactusPrefab: {fileID: 1599882281791032820, guid: 7817bfb2e38673a418686d9d2567e5b4, type: 3}
   gameoverGui: {fileID: 13355351}
   guiGui: {fileID: 1312221621}
-  endless: 0
+  endless: 1
 --- !u!1 &689520682
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,12 +9,25 @@ public class GameController : MonoBehaviour
     public int Score { get; private set; }
     public int Damage { get; private set; } = 1;
 
+    private int cactusScore;
+
     [SerializeField] private GameObject cactusPrefab;
+    [SerializeField] private GameObject gameoverGui;
+    [SerializeField] private GameObject guiGui;
+    [SerializeField] private bool endless;
+
+
     private Dictionary<Vector2Int, GameObject> gridCells = new();
+    private bool gameover;
 
     private void Awake()
     {
         Instance = this;
+    }
+
+    private void Start()
+    {
+        Time.timeScale = 1f;
     }
 
     private void OnMouseDown()
@@ -37,10 +50,17 @@ public class GameController : MonoBehaviour
     public void AddScore(int score)
     {
         Score += score;
+        cactusScore += score;
 
-        if (Score >= 200)
+        if (cactusScore >= 30)
         {
-            Debug.Log("You win!");
+            cactusScore -= 30;
+            CactusCount++;
+        }
+
+        if (Score >= 200 && !endless)
+        {
+            guiGui.SetActive(true);
         }
 
         if (Score >= 100)
@@ -51,5 +71,18 @@ public class GameController : MonoBehaviour
         {
             Damage = 2;
         }
+    }
+
+    public void GameOver()
+    {
+        if (gameover)
+        {
+            return;
+        }
+
+        gameover = true;
+
+        gameoverGui.SetActive(true);
+        Time.timeScale = 0.25f;
     }
 }

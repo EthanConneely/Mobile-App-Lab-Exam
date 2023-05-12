@@ -1,3 +1,6 @@
+using System;
+using System.Collections;
+
 using UnityEngine;
 
 public class Attacker : MonoBehaviour
@@ -19,6 +22,15 @@ public class Attacker : MonoBehaviour
         GetComponent<Rigidbody2D>().velocity = new Vector2(speed, 0);
     }
 
+    private void Update()
+    {
+        if (transform.position.x < -5.75f)
+        {
+            GameController.Instance.GameOver();
+            Destroy(gameObject);
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Needle"))
@@ -32,5 +44,23 @@ public class Attacker : MonoBehaviour
                 GameController.Instance.AddScore(score);
             }
         }
+
+        if (other.CompareTag("Cactus"))
+        {
+            StartCoroutine(AttackCactus_Coroutine(other.gameObject));
+        }
+    }
+
+    private IEnumerator AttackCactus_Coroutine(GameObject gameObject)
+    {
+        GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        GetComponentInChildren<Animator>().enabled = false;
+
+        yield return new WaitForSeconds(0.5f);
+
+        Destroy(gameObject);
+
+        GetComponent<Rigidbody2D>().velocity = new Vector2(speed, 0);
+        GetComponentInChildren<Animator>().enabled = true;
     }
 }
