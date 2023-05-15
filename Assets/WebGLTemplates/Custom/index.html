@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Ethan Conneely - {{{ PRODUCT_NAME }}}</title>
+
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #9cdcf1;
+            color: #000;
+        }
+
+        .flex {
+            position: absolute;
+            top: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+            background-color: #fff;
+        }
+
+        .progress {
+            position: relative;
+            width: 40%;
+            height: 40px;
+            background-color: #fff;
+
+            border-color: black;
+            border-style: solid;
+            border-width: 3px;
+
+            box-shadow: 10px 10px rgba(0, 0, 0, 0.26);
+        }
+
+        #fill {
+            background-color: #282844;
+            height: 100%;
+        }
+
+    </style>
+</head>
+
+<body style="text-align: center; padding: 0; border: 0; margin: 0;">
+    <canvas id="unity-canvas"></canvas>
+    <div class="flex">
+        <div class="progress">
+            <div id="fill"></div>
+        </div>
+    </div>
+    <script src="Build/{{{ LOADER_FILENAME }}}"></script>
+    <script>
+        const evenCanvasSize = "{{{ EVEN_CANVAS_SIZE }}}";
+        let fill = document.getElementById("fill");
+
+        function CreateUnity()
+        {
+            createUnityInstance(document.querySelector("#unity-canvas"), {
+                dataUrl: "Build/{{{ DATA_FILENAME }}}",
+                frameworkUrl: "Build/{{{ FRAMEWORK_FILENAME }}}",
+                codeUrl: "Build/{{{ CODE_FILENAME }}}",
+                memoryUrl: "Build/{{{ MEMORY_FILENAME }}}",
+                symbolsUrl: "Build/{{{ SYMBOLS_FILENAME }}}",
+                streamingAssetsUrl: "StreamingAssets",
+                companyName: "{{{ COMPANY_NAME }}}",
+                productName: "{{{ PRODUCT_NAME }}}",
+                productVersion: "{{{ PRODUCT_VERSION }}}",
+            }, Progress);
+        }
+
+        function CheckMobile()
+        {
+            if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent))
+            {
+                // Mobile device style: fill the whole browser client area with the game canvas:
+                var meta = document.createElement('meta');
+                meta.name = 'viewport';
+                meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+                document.getElementsByTagName('head')[0].appendChild(meta);
+
+                var canvas = document.querySelector("#unity-canvas");
+                canvas.style.width = "100%";
+                canvas.style.height = "100%";
+                canvas.style.position = "fixed";
+
+                document.body.style.textAlign = "left";
+            }
+        }
+
+        function Progress(percentage)
+        {
+            fill.style.width = `${100 * percentage}%`;
+
+            if (percentage == 1)
+            {
+                setTimeout(function ()
+                {
+                    document.querySelector(".flex").style.display = "none";
+                }, 500);
+            }
+        }
+
+        function ResizeCanvas()
+        {
+            let unity_canvas = document.getElementById("unity-canvas");
+            let width = window.innerWidth;
+            let height = window.innerHeight;
+
+            if (evenCanvasSize)
+            {
+                width -= width % 2;
+                height -= height % 2;
+            }
+
+            unity_canvas.style.width = width + "px";
+            unity_canvas.style.height = height + "px";
+        }
+
+        window.addEventListener("resize", ResizeCanvas, false);
+
+        ResizeCanvas();
+        CreateUnity();
+        CheckMobile();
+
+    </script>
+</body>
+
+</html>
